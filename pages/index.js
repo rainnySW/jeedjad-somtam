@@ -60,10 +60,12 @@ export default function Home({ t, lang, setEditingItem }) {
               <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-2 text-[#2D2A26] dark:text-[#F5F5F4]">
                 {t('chefsPick') || "Chef's Recommendations"}
               </h2>
-              <p className="text-gray-500 dark:text-gray-400 font-medium">Our most popular and spicy signature dishes.</p>
+              <p className="text-gray-500 dark:text-gray-400 font-medium">
+                {lang === 'th' ? 'เมนูซิกเนเจอร์ยอดฮิตรสแซ่บจัดจ้านของเรา' : 'Our most popular and spicy signature dishes.'}
+              </p>
             </div>
             <Link href="/menu" className="hidden sm:block text-[#E63946] font-bold hover:underline">
-              View All
+              {lang === 'th' ? 'ดูทั้งหมด' : 'View All'}
             </Link>
           </div>
 
@@ -88,7 +90,12 @@ export default function Home({ t, lang, setEditingItem }) {
                 
                 <div className="flex flex-col flex-1 pb-1">
                   <div className="hidden md:flex items-center gap-2 mb-2">
-                    <span className="bg-[#2A9D8F]/10 text-[#2A9D8F] text-[10px] font-black uppercase px-2 py-1 rounded-md">{item.category}</span>
+                    <span className="bg-[#2A9D8F]/10 text-[#2A9D8F] text-[10px] font-black uppercase px-2 py-1 rounded-md">
+                      {item.category === 'Larb / Nam Tok' ? (lang === 'th' ? 'ลาบ / น้ำตก' : 'Larb / Nam Tok') : 
+                       item.category === 'Somtam' ? (lang === 'th' ? 'ส้มตำ' : 'Somtam') :
+                       item.category === 'Meats' ? (lang === 'th' ? 'เมนูย่าง/ทอด' : 'Meats') :
+                       item.category === 'Sides' ? (lang === 'th' ? 'เครื่องเคียง' : 'Sides') : item.category}
+                    </span>
                     <span className="text-[#E63946] text-xs font-bold">⭐ Popular</span>
                   </div>
                   <h3 className="text-sm md:text-xl font-black mb-1 md:mb-2 leading-tight line-clamp-2 md:line-clamp-none">{lang === 'th' && item.name_th ? item.name_th : item.name}</h3>
@@ -102,7 +109,7 @@ export default function Home({ t, lang, setEditingItem }) {
           
           <div className="mt-8 text-center sm:hidden">
             <Link href="/menu" className="inline-block py-3 px-8 bg-gray-100 dark:bg-gray-800 rounded-full text-[#E63946] font-bold w-full">
-              View Full Menu
+              {lang === 'th' ? 'ดูเมนูทั้งหมด' : 'View Full Menu'}
             </Link>
           </div>
         </section>

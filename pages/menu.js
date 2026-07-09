@@ -12,6 +12,15 @@ export default function Menu({ t, lang, setEditingItem, quickAddToCart }) {
 
   const categories = ['All', ...new Set(menu.map(i => i.category))];
   
+  const categoryTranslations = {
+    'All': { en: 'All', th: 'ทั้งหมด' },
+    'Somtam': { en: 'Somtam', th: 'ส้มตำ' },
+    'Meats': { en: 'Meats', th: 'เมนูย่าง/ทอด' },
+    'Sides': { en: 'Sides', th: 'เครื่องเคียง' },
+    'Larb / Nam Tok': { en: 'Larb / Nam Tok', th: 'ลาบ / น้ำตก' }
+  };
+  const getCategoryName = (cat) => categoryTranslations[cat] ? categoryTranslations[cat][lang] || cat : cat;
+  
   const filteredMenu = menu.filter(i => {
     const matchCategory = category === 'All' || i.category === category;
     const matchSearch = i.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -31,7 +40,9 @@ export default function Menu({ t, lang, setEditingItem, quickAddToCart }) {
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">
             {t('navMenu')}
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 font-medium">Select your favorites and add them to your order.</p>
+          <p className="text-gray-500 dark:text-gray-400 font-medium">
+            {lang === 'th' ? 'เลือกเมนูโปรดของคุณและเพิ่มลงในออเดอร์ได้เลย' : 'Select your favorites and add them to your order.'}
+          </p>
         </div>
 
         {/* Search & Compact Categories */}
@@ -60,7 +71,7 @@ export default function Menu({ t, lang, setEditingItem, quickAddToCart }) {
                     : 'bg-white dark:bg-[#292524] text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 border border-gray-100 dark:border-gray-800'
                 }`}
               >
-                {cat}
+                {getCategoryName(cat)}
               </button>
             ))}
           </div>
@@ -86,7 +97,7 @@ export default function Menu({ t, lang, setEditingItem, quickAddToCart }) {
                 </div>
               </div>
               <div className="p-3 md:p-5 flex flex-col flex-1">
-                <div className="text-[9px] md:text-[10px] uppercase font-bold text-[#2A9D8F] mb-1">{item.category}</div>
+                <div className="text-[9px] md:text-[10px] uppercase font-bold text-[#2A9D8F] mb-1">{getCategoryName(item.category)}</div>
                 <h3 className="text-sm md:text-lg font-bold mb-1 md:mb-2 leading-tight line-clamp-2 md:line-clamp-none">{lang === 'th' && item.name_th ? item.name_th : item.name}</h3>
                 <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3 md:mb-4 flex-1">
                   {lang === 'th' && item.description_th ? item.description_th : item.description}

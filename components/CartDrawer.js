@@ -81,8 +81,21 @@ export default function CartDrawer({ cart, setCart, isCartOpen, setIsCartOpen, s
                         <p className="text-xs opacity-70">Qty: {item.quantity}</p>
                         {item.options?.spiciness && (
                           <p className="text-[10px] text-[#E63946] font-bold mt-1">
-                            🌶️ {item.options.spiciness}
-                            {item.options.addons?.length > 0 && ` + ${item.options.addons.join(', ')}`}
+                            🌶️ {
+                                 {
+                                   'No Chili': lang === 'th' ? 'ไม่ใส่พริก' : 'No Chili',
+                                   'Mild': lang === 'th' ? 'เผ็ดน้อย' : 'Mild',
+                                   'Medium': lang === 'th' ? 'เผ็ดกลาง' : 'Medium',
+                                   'Spicy': lang === 'th' ? 'เผ็ดมาก' : 'Spicy'
+                                 }[item.options.spiciness] || item.options.spiciness
+                               }
+                            {item.options.addons?.length > 0 && ` + ${item.options.addons.map(a => 
+                                 ({
+                                   'Khanom Jeen (Rice Noodles)': lang === 'th' ? 'ขนมจีน' : 'Khanom Jeen',
+                                   'Salted Egg (ไข่เค็ม)': lang === 'th' ? 'ไข่เค็ม' : 'Salted Egg',
+                                   'Pork Rind (แคบหมู)': lang === 'th' ? 'แคบหมู' : 'Pork Rind'
+                                 }[a] || a)
+                               ).join(', ')}`}
                           </p>
                         )}
                         <div className="mt-2 flex gap-2">
@@ -129,9 +142,7 @@ export default function CartDrawer({ cart, setCart, isCartOpen, setIsCartOpen, s
                 {paymentMethod === 'qr' ? (
                   <div className="animate-fade-in">
                     <div className="bg-white p-4 rounded-xl inline-block shadow-sm">
-                      <div className="w-48 h-48 bg-gray-200 flex items-center justify-center border-4 border-dashed border-gray-300">
-                        <span className="text-gray-400 font-bold">QR CODE</span>
-                      </div>
+                      <img src="/qr-code.png" alt="Payment QR Code" className="w-48 h-48 object-cover rounded-lg" />
                     </div>
                   </div>
                 ) : (
