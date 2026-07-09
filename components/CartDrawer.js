@@ -78,7 +78,7 @@ export default function CartDrawer({ cart, setCart, isCartOpen, setIsCartOpen, s
                           <h3 className="font-bold text-sm">{lang === 'th' && item.name_th ? item.name_th : item.name}</h3>
                           <span className="font-bold text-[#E63946]">฿{item.price * item.quantity}</span>
                         </div>
-                        <p className="text-xs opacity-70">Qty: {item.quantity}</p>
+                        <p className="text-xs opacity-70">{lang === 'th' ? 'จำนวน' : 'Qty'}: {item.quantity}</p>
                         {item.options?.spiciness && (
                           <p className="text-[10px] text-[#E63946] font-bold mt-1">
                             🌶️ {
@@ -99,8 +99,8 @@ export default function CartDrawer({ cart, setCart, isCartOpen, setIsCartOpen, s
                           </p>
                         )}
                         <div className="mt-2 flex gap-2">
-                          <button onClick={() => setEditingItem(item)} className="text-xs text-[#2A9D8F] font-bold">Edit</button>
-                          <button onClick={() => removeItem(item.uid)} className="text-xs text-red-400 font-bold">Remove</button>
+                          <button onClick={() => setEditingItem(item)} className="text-xs text-[#2A9D8F] font-bold">{lang === 'th' ? 'แก้ไข' : 'Edit'}</button>
+                          <button onClick={() => removeItem(item.uid)} className="text-xs text-red-400 font-bold">{lang === 'th' ? 'ลบ' : 'Remove'}</button>
                         </div>
                       </div>
                     </div>
@@ -129,13 +129,13 @@ export default function CartDrawer({ cart, setCart, isCartOpen, setIsCartOpen, s
                     onClick={() => setPaymentMethod('qr')}
                     className={`px-4 py-1.5 rounded-lg text-sm font-bold transition-all ${paymentMethod === 'qr' ? 'bg-white dark:bg-[#292524] shadow-sm text-[#E63946]' : 'text-gray-500'}`}
                   >
-                    QR Code
+                    {lang === 'th' ? 'คิวอาร์โค้ด' : 'QR Code'}
                   </button>
                   <button 
-                    onClick={() => setPaymentMethod('transfer')}
-                    className={`px-4 py-1.5 rounded-lg text-sm font-bold transition-all ${paymentMethod === 'transfer' ? 'bg-white dark:bg-[#292524] shadow-sm text-[#E63946]' : 'text-gray-500'}`}
+                    onClick={() => setPaymentMethod('bank')}
+                    className={`px-4 py-1.5 rounded-lg text-sm font-bold transition-all ${paymentMethod === 'bank' ? 'bg-white dark:bg-[#292524] shadow-sm text-[#E63946]' : 'text-gray-500'}`}
                   >
-                    Bank Transfer
+                    {lang === 'th' ? 'โอนเงินผ่านธนาคาร' : 'Bank Transfer'}
                   </button>
                 </div>
 
@@ -147,21 +147,33 @@ export default function CartDrawer({ cart, setCart, isCartOpen, setIsCartOpen, s
                   </div>
                 ) : (
                   <div className="animate-fade-in bg-white dark:bg-[#292524] p-4 rounded-xl border border-gray-100 dark:border-gray-800 text-left max-w-[260px] mx-auto shadow-sm">
-                    <p className="text-xs text-gray-500 uppercase font-bold mb-1">Kasikorn Bank (KBank)</p>
-                    <p className="text-xl font-black text-[#E63946] mb-2 tracking-wider">012-3-45678-9</p>
+                    <p className="text-xs text-gray-500 uppercase font-bold mb-1">K+</p>
+                    <p className="text-xl font-black text-[#E63946] mb-2 tracking-wider">182-3-24795-6</p>
                     <p className="text-sm font-bold">JeedJad Restaurant Co., Ltd.</p>
                   </div>
                 )}
                 
-                <p className="text-sm font-bold text-[#E63946] mt-4 mb-4">Amount: ฿{cartTotal}</p>
+                <p className="text-sm font-bold text-[#E63946] mt-4 mb-4">{lang === 'th' ? 'ยอดชำระ' : 'Amount'}: ฿{cartTotal}</p>
                 
                 <div className="bg-white dark:bg-[#292524] p-4 rounded-xl border border-gray-100 dark:border-gray-800 text-left">
-                  <label className="block text-sm font-bold mb-2">Upload Payment Slip</label>
-                  <input 
-                    type="file" 
-                    accept="image/*"
-                    className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-[#E63946]/10 file:text-[#E63946] hover:file:bg-[#E63946]/20 cursor-pointer"
-                  />
+                  <label className="block text-sm font-bold mb-2">{lang === 'th' ? 'อัปโหลดสลิปโอนเงิน' : 'Upload Payment Slip'}</label>
+                  <div className="relative">
+                    <input 
+                      type="file" 
+                      accept="image/*"
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      onChange={(e) => {
+                        const fileLabel = e.target.nextElementSibling.lastElementChild;
+                        fileLabel.textContent = e.target.files[0] ? e.target.files[0].name : (lang === 'th' ? 'ไม่ได้เลือกไฟล์' : 'No file chosen');
+                      }}
+                    />
+                    <div className="w-full text-sm text-gray-500 flex items-center pointer-events-none">
+                      <span className="py-2 px-4 rounded-xl font-semibold bg-[#E63946]/10 text-[#E63946] mr-4 pointer-events-none">
+                        {lang === 'th' ? 'เลือกไฟล์' : 'Choose File'}
+                      </span>
+                      <span className="pointer-events-none truncate pr-4">{lang === 'th' ? 'ไม่ได้เลือกไฟล์' : 'No file chosen'}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -171,31 +183,90 @@ export default function CartDrawer({ cart, setCart, isCartOpen, setIsCartOpen, s
             <div className="h-full flex flex-col items-center py-8 text-center animate-fade-in space-y-6">
               <div className="w-20 h-20 bg-[#2A9D8F]/20 text-[#2A9D8F] rounded-full flex items-center justify-center text-4xl mx-auto shrink-0">✓</div>
               <div>
-                <h2 className="text-2xl font-bold">Order Confirmed!</h2>
-                <p className="opacity-70 text-sm">Table {lastOrder?.table} is being served.</p>
+                <h2 className="text-2xl font-bold">{lang === 'th' ? 'ยืนยันออเดอร์แล้ว!' : 'Order Confirmed!'}</h2>
+                <p className="opacity-70 text-sm">{lang === 'th' ? `กำลังเสิร์ฟอาหารที่โต๊ะ ${lastOrder?.table}` : `Table ${lastOrder?.table} is being served.`}</p>
               </div>
 
               {lastOrder && (
-                <div className="w-full bg-white dark:bg-[#292524] rounded-2xl p-6 text-left shadow-sm border border-gray-100 dark:border-gray-800 border-dashed relative">
-                  <div className="absolute -top-3 -left-3 w-6 h-6 bg-[#FDFBF7] dark:bg-[#1C1917] rounded-full"></div>
-                  <div className="absolute -top-3 -right-3 w-6 h-6 bg-[#FDFBF7] dark:bg-[#1C1917] rounded-full"></div>
+                <div className="w-full max-w-[300px] mx-auto bg-white rounded-none p-6 text-left shadow-[0_15px_35px_rgba(0,0,0,0.15)] relative animate-print-receipt origin-top mt-2 z-10">
+                  {/* Zig-zag top */}
+                  <div className="absolute top-0 left-0 w-full h-2 -translate-y-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHBvbHlnb24gcG9pbnRzPSIwLDEwIDUsMCAxMCwxMCIgZmlsbD0iI2ZmZmZmZiIvPjwvc3ZnPg==')] bg-repeat-x bg-[length:10px_10px]"></div>
                   
-                  <h3 className="font-bold text-center border-b border-gray-100 dark:border-gray-700 border-dashed pb-4 mb-4">E-Receipt</h3>
+                  {/* Zig-zag bottom */}
+                  <div className="absolute bottom-0 left-0 w-full h-2 translate-y-full bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHBvbHlnb24gcG9pbnRzPSIwLDAgNSwxMCAxMCwwIiBmaWxsPSIjZmZmZmZmIi8+PC9zdmc+')] bg-repeat-x bg-[length:10px_10px]"></div>
                   
-                  <div className="space-y-3 mb-4 text-sm">
+                  <div className="text-center border-b-2 border-gray-300 border-dashed pb-4 mb-4 text-gray-800">
+                    <h3 className="font-black text-2xl mb-1 tracking-widest uppercase">{lang === 'th' ? 'ใบเสร็จ' : 'RECEIPT'}</h3>
+                    <p className="text-[10px] font-mono opacity-70 font-bold">JEEDJAD! SOMTAM</p>
+                    <p className="text-[10px] font-mono opacity-70 mt-1">{new Date().toLocaleString()}</p>
+                    <div className="inline-block mt-3 px-3 py-1 bg-gray-100 font-mono font-bold text-sm">TABLE {lastOrder?.table}</div>
+                  </div>
+                  
+                  <div className="space-y-4 mb-6 text-sm font-mono text-gray-800">
                     {lastOrder.items.map(item => (
-                      <div key={item.uid} className="flex justify-between items-start">
-                        <div>
-                          <span className="font-bold">{item.quantity}x</span> {lang === 'th' && item.name_th ? item.name_th : item.name}
+                      <div key={item.uid} className="flex justify-between items-start leading-snug">
+                        <div className="pr-4 flex-1">
+                          <span className="font-bold mr-2">{item.quantity}x</span> 
+                          <span className="font-semibold">{lang === 'th' && item.name_th ? item.name_th : item.name}</span>
+                          {item.options?.spiciness && (
+                            <div className="text-[10px] opacity-70 ml-6 mt-1 flex items-center gap-1">
+                              🌶️ {
+                                 {
+                                   'No Chili': lang === 'th' ? 'ไม่ใส่พริก' : 'No Chili',
+                                   'Mild': lang === 'th' ? 'เผ็ดน้อย' : 'Mild',
+                                   'Medium': lang === 'th' ? 'เผ็ดกลาง' : 'Medium',
+                                   'Spicy': lang === 'th' ? 'เผ็ดมาก' : 'Spicy'
+                                 }[item.options.spiciness] || item.options.spiciness
+                               }
+                            </div>
+                          )}
+                          {item.options?.addons?.map(a => (
+                            <div key={a} className="text-[10px] opacity-70 ml-6 mt-0.5">
+                              + {
+                                 {
+                                   'Khanom Jeen (Rice Noodles)': lang === 'th' ? 'ขนมจีน' : 'Khanom Jeen',
+                                   'Salted Egg (ไข่เค็ม)': lang === 'th' ? 'ไข่เค็ม' : 'Salted Egg',
+                                   'Pork Rind (แคบหมู)': lang === 'th' ? 'แคบหมู' : 'Pork Rind'
+                                 }[a] || a
+                               }
+                            </div>
+                          ))}
                         </div>
-                        <span className="font-bold">฿{item.price * item.quantity}</span>
+                        <span className="font-bold shrink-0">฿{item.price * item.quantity}</span>
                       </div>
                     ))}
                   </div>
                   
-                  <div className="border-t border-gray-100 dark:border-gray-700 border-dashed pt-4 flex justify-between font-bold text-lg">
-                    <span>Total Paid</span>
-                    <span className="text-[#2A9D8F]">฿{lastOrder.total}</span>
+                  <div className="border-t-2 border-gray-300 border-dashed pt-4 flex justify-between font-black text-xl text-gray-900 font-mono">
+                    <span>{lang === 'th' ? 'ยอดรวม' : 'TOTAL'}</span>
+                    <span>฿{lastOrder?.total}</span>
+                  </div>
+                  
+                  <div className="mt-8 text-center text-gray-400">
+                    {/* Barcode Mock */}
+                    <svg className="w-full h-10 opacity-60" viewBox="0 0 100 20" preserveAspectRatio="none">
+                      <rect x="0" y="0" width="3" height="20" fill="currentColor"/>
+                      <rect x="5" y="0" width="1" height="20" fill="currentColor"/>
+                      <rect x="8" y="0" width="4" height="20" fill="currentColor"/>
+                      <rect x="14" y="0" width="2" height="20" fill="currentColor"/>
+                      <rect x="18" y="0" width="6" height="20" fill="currentColor"/>
+                      <rect x="26" y="0" width="1" height="20" fill="currentColor"/>
+                      <rect x="29" y="0" width="3" height="20" fill="currentColor"/>
+                      <rect x="35" y="0" width="2" height="20" fill="currentColor"/>
+                      <rect x="40" y="0" width="5" height="20" fill="currentColor"/>
+                      <rect x="47" y="0" width="1" height="20" fill="currentColor"/>
+                      <rect x="50" y="0" width="4" height="20" fill="currentColor"/>
+                      <rect x="56" y="0" width="2" height="20" fill="currentColor"/>
+                      <rect x="60" y="0" width="6" height="20" fill="currentColor"/>
+                      <rect x="68" y="0" width="1" height="20" fill="currentColor"/>
+                      <rect x="71" y="0" width="3" height="20" fill="currentColor"/>
+                      <rect x="76" y="0" width="5" height="20" fill="currentColor"/>
+                      <rect x="83" y="0" width="2" height="20" fill="currentColor"/>
+                      <rect x="88" y="0" width="4" height="20" fill="currentColor"/>
+                      <rect x="94" y="0" width="2" height="20" fill="currentColor"/>
+                      <rect x="98" y="0" width="2" height="20" fill="currentColor"/>
+                    </svg>
+                    <p className="text-[10px] font-mono mt-2 tracking-[0.2em]">{lang === 'th' ? 'ขอบคุณที่ใช้บริการ' : 'THANK YOU'}</p>
                   </div>
                 </div>
               )}
@@ -204,7 +275,7 @@ export default function CartDrawer({ cart, setCart, isCartOpen, setIsCartOpen, s
                 onClick={() => { setIsCartOpen(false); setCheckoutStep('cart'); }}
                 className="mt-4 px-6 py-4 bg-[#E63946] text-white rounded-xl font-bold w-full"
               >
-                Done
+                {lang === 'th' ? 'เสร็จสิ้น' : 'Done'}
               </button>
             </div>
           )}
@@ -224,14 +295,14 @@ export default function CartDrawer({ cart, setCart, isCartOpen, setIsCartOpen, s
                 
                 {!isConfirmingClear ? (
                   <button onClick={() => setIsConfirmingClear(true)} className="w-full py-3 bg-red-50 dark:bg-red-500/10 text-red-500 rounded-xl font-bold hover:bg-red-100 dark:hover:bg-red-500/20 transition-all flex justify-center items-center gap-2">
-                    <span>🗑️</span> Clear Cart
+                    <span>🗑️</span> {lang === 'th' ? 'ล้างตะกร้า' : 'Clear Cart'}
                   </button>
                 ) : (
                   <div className="w-full p-3 bg-gray-50 dark:bg-[#1C1917] rounded-xl border border-gray-200 dark:border-gray-800 flex flex-col items-center gap-3">
-                    <span className="font-bold text-gray-500">Are you sure you want to clear?</span>
+                    <span className="font-bold text-gray-500">{lang === 'th' ? 'คุณแน่ใจหรือไม่ว่าต้องการล้างตะกร้า?' : 'Are you sure you want to clear?'}</span>
                     <div className="flex gap-2 w-full">
-                      <button onClick={() => setIsConfirmingClear(false)} className="flex-1 py-2.5 text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-800 rounded-lg font-bold hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">Nevermind.</button>
-                      <button onClick={() => { setCart([]); setIsConfirmingClear(false); }} className="flex-1 py-2.5 text-white bg-red-500 rounded-lg font-bold shadow-sm hover:opacity-90 transition-opacity">Yes! Proceed</button>
+                      <button onClick={() => setIsConfirmingClear(false)} className="flex-1 py-2.5 text-gray-600 dark:text-gray-300 bg-gray-200 dark:bg-gray-800 rounded-lg font-bold hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">{lang === 'th' ? 'ยกเลิก' : 'Nevermind.'}</button>
+                      <button onClick={() => { setCart([]); setIsConfirmingClear(false); }} className="flex-1 py-2.5 text-white bg-red-500 rounded-lg font-bold shadow-sm hover:opacity-90 transition-opacity">{lang === 'th' ? 'ยืนยัน' : 'Yes! Proceed'}</button>
                     </div>
                   </div>
                 )}

@@ -64,7 +64,7 @@ export default function Account({ t, lang, setLang, isDark, setIsDark, user, set
             
             <div className="space-y-3 mb-6">
               <div className="p-4 bg-gray-50 dark:bg-[#1C1917] rounded-xl border border-gray-100 dark:border-gray-800 flex justify-between items-center">
-                <span className="font-bold text-gray-600 dark:text-gray-300">Total Orders</span>
+                <span className="font-bold text-gray-600 dark:text-gray-300">{lang === 'th' ? 'จำนวนออเดอร์ทั้งหมด' : 'Total Orders'}</span>
                 <span className="font-black text-[#2A9D8F]">{user.orderCount || 0}</span>
               </div>
             </div>
@@ -73,7 +73,7 @@ export default function Account({ t, lang, setLang, isDark, setIsDark, user, set
               onClick={handleLogout}
               className="w-full py-3 bg-red-50 dark:bg-red-500/10 text-red-500 rounded-xl font-bold hover:bg-red-100 dark:hover:bg-red-500/20 transition-all"
             >
-              Log Out
+              {lang === 'th' ? 'ออกจากระบบ' : 'Log Out'}
             </button>
           </div>
         ) : (
@@ -83,13 +83,13 @@ export default function Account({ t, lang, setLang, isDark, setIsDark, user, set
                 onClick={() => { setIsLoginMode(true); setError(''); }}
                 className={`font-bold text-lg ${isLoginMode ? 'text-[#E63946]' : 'text-gray-400'}`}
               >
-                Sign In
+                {lang === 'th' ? 'เข้าสู่ระบบ' : 'Sign In'}
               </button>
               <button 
                 onClick={() => { setIsLoginMode(false); setError(''); }}
                 className={`font-bold text-lg ${!isLoginMode ? 'text-[#E63946]' : 'text-gray-400'}`}
               >
-                Register
+                {lang === 'th' ? 'สมัครสมาชิก' : 'Register'}
               </button>
             </div>
 
@@ -98,20 +98,20 @@ export default function Account({ t, lang, setLang, isDark, setIsDark, user, set
               
               {!isLoginMode && (
                 <div>
-                  <label className="block text-sm font-bold mb-2">Name</label>
-                  <input type="text" value={name} onChange={e=>setName(e.target.value)} required={!isLoginMode} placeholder="Your Name" className="w-full p-3 bg-gray-50 dark:bg-[#1C1917] border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#E63946]" />
+                  <label className="block text-sm font-bold mb-2">{lang === 'th' ? 'ชื่อ' : 'Name'}</label>
+                  <input type="text" value={name} onChange={e=>setName(e.target.value)} required={!isLoginMode} placeholder={lang === 'th' ? 'ชื่อของคุณ' : 'Your Name'} className="w-full p-3 bg-gray-50 dark:bg-[#1C1917] border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#E63946]" />
                 </div>
               )}
               <div>
-                <label className="block text-sm font-bold mb-2">Email</label>
+                <label className="block text-sm font-bold mb-2">{lang === 'th' ? 'อีเมล' : 'Email'}</label>
                 <input type="email" value={email} onChange={e=>setEmail(e.target.value)} required placeholder="you@example.com" className="w-full p-3 bg-gray-50 dark:bg-[#1C1917] border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#E63946]" />
               </div>
               <div>
-                <label className="block text-sm font-bold mb-2">Password</label>
+                <label className="block text-sm font-bold mb-2">{lang === 'th' ? 'รหัสผ่าน' : 'Password'}</label>
                 <input type="password" value={password} onChange={e=>setPassword(e.target.value)} required placeholder="••••••••" className="w-full p-3 bg-gray-50 dark:bg-[#1C1917] border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:border-[#E63946]" />
               </div>
               <button type="submit" disabled={loading} className="w-full py-4 bg-[#E63946] text-white rounded-xl font-bold text-lg hover:opacity-90 active:scale-95 transition-all mt-4 shadow-sm disabled:opacity-50">
-                {loading ? 'Processing...' : (isLoginMode ? 'Sign In' : 'Create Account')}
+                {loading ? 'Processing...' : (isLoginMode ? (lang === 'th' ? 'เข้าสู่ระบบ' : 'Sign In') : (lang === 'th' ? 'สมัครสมาชิก' : 'Create Account'))}
               </button>
             </form>
           </div>

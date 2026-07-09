@@ -96,7 +96,7 @@ export default function Home({ t, lang, setEditingItem }) {
                        item.category === 'Meats' ? (lang === 'th' ? 'เมนูย่าง/ทอด' : 'Meats') :
                        item.category === 'Sides' ? (lang === 'th' ? 'เครื่องเคียง' : 'Sides') : item.category}
                     </span>
-                    <span className="text-[#E63946] text-xs font-bold">⭐ Popular</span>
+                    <span className="text-[#E63946] text-xs font-bold">{lang === 'th' ? '⭐ ยอดนิยม' : '⭐ Popular'}</span>
                   </div>
                   <h3 className="text-sm md:text-xl font-black mb-1 md:mb-2 leading-tight line-clamp-2 md:line-clamp-none">{lang === 'th' && item.name_th ? item.name_th : item.name}</h3>
                   <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 line-clamp-2 flex-1">
