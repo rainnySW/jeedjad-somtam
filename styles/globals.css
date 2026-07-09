@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-somtam-red: #E63946;
+  --color-somtam-green: #2A9D8F;
+  --color-somtam-bg: #FDFBF7;
+  --color-somtam-bg-dark: #1C1917;
+  --color-somtam-card: #FFFFFF;
+  --color-somtam-card-dark: #292524;
+  --color-somtam-text: #2D2A26;
+  --color-somtam-text-dark: #F5F5F4;
+}
+
+@keyframes slideUpEnterMobile {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideSideEnterPC {
+  0% { opacity: 0; transform: translateX(40px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.page-transition-enter {
+  animation: slideUpEnterMobile 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 768px) {
+  .page-transition-enter {
+    animation: slideSideEnterPC 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+}
+
+@keyframes slideUpPanel {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up-panel {
+  animation: slideUpPanel 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
