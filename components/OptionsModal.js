@@ -1,4 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+
+const ADDONS_DATA = [
+  { id: 'Khanom Jeen (Rice Noodles)', en: 'Khanom Jeen (Rice Noodles)', th: 'ขนมจีน', price: 10 },
+  { id: 'Salted Egg (ไข่เค็ม)', en: 'Salted Egg', th: 'ไข่เค็ม', price: 15 },
+  { id: 'Pork Rind (แคบหมู)', en: 'Pork Rind', th: 'แคบหมู', price: 15 }
+];
 
 export default function OptionsModal({ item, onClose, onSave, lang, t }) {
   const [qty, setQty] = useState(1);
@@ -15,11 +21,22 @@ export default function OptionsModal({ item, onClose, onSave, lang, t }) {
     }
   }, [item]);
 
+  const basePrice = useMemo(() => item?.basePrice || item?.price || 0, [item]);
+
+  const addonsPrice = useMemo(() => {
+    return addons.reduce((total, addonId) => {
+      const addon = ADDONS_DATA.find(a => a.id === addonId);
+      return total + (addon ? addon.price : 0);
+    }, 0);
+  }, [addons]);
+
   if (!item) return null;
 
   const handleSave = () => {
     onSave({
       ...item,
+      basePrice: basePrice,
+      price: basePrice + addonsPrice,
       quantity: qty,
       instructions,
       options: {
@@ -51,7 +68,7 @@ export default function OptionsModal({ item, onClose, onSave, lang, t }) {
           {item.image_url && <img src={item.image_url} className="w-24 h-24 rounded-xl object-cover" />}
           <div>
             <h3 className="font-bold text-lg">{lang === 'th' && item.name_th ? item.name_th : item.name}</h3>
-            <p className="font-bold text-[#E63946] mt-1">฿{item.price}</p>
+            <p className="font-bold text-[#E63946] mt-1">฿{basePrice}</p>
           </div>
         </div>
 
@@ -94,11 +111,7 @@ export default function OptionsModal({ item, onClose, onSave, lang, t }) {
             <div>
               <label className="block text-sm font-bold mb-3">{lang === 'th' ? 'เพิ่มเครื่อง' : 'Add-ons'}</label>
               <div className="space-y-2">
-                {[
-                  { id: 'Khanom Jeen (Rice Noodles)', en: 'Khanom Jeen (Rice Noodles)', th: 'ขนมจีน', price: 10 },
-                  { id: 'Salted Egg (ไข่เค็ม)', en: 'Salted Egg', th: 'ไข่เค็ม', price: 15 },
-                  { id: 'Pork Rind (แคบหมู)', en: 'Pork Rind', th: 'แคบหมู', price: 15 }
-                ].map(addon => (
+                {ADDONS_DATA.map(addon => (
                   <label key={addon.id} onClick={(e) => { e.preventDefault(); toggleAddon(addon.id); }} className="flex items-center justify-between p-3 rounded-xl border border-gray-100 dark:border-gray-800 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                     <div className="flex items-center gap-3">
                       <div className={`w-5 h-5 rounded-md flex items-center justify-center border-2 transition-colors ${addons.includes(addon.id) ? 'bg-[#E63946] border-[#E63946]' : 'border-gray-300'}`}>
@@ -126,7 +139,7 @@ export default function OptionsModal({ item, onClose, onSave, lang, t }) {
         </div>
 
         <button onClick={handleSave} className="w-full py-4 bg-[#E63946] text-white rounded-xl font-bold text-lg hover:opacity-90 active:scale-95 transition-all shadow-[0_4px_15px_rgba(230,57,70,0.3)]">
-          {t('addToOrder')} - ฿{item.price * qty + (addons.length * 15 * qty)}
+          {t('addToOrder')} - ฿{(basePrice + addonsPrice) * qty}
         </button>
       </div>
     </div>

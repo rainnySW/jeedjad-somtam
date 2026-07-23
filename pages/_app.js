@@ -37,7 +37,7 @@ export default function App({ Component, pageProps }) {
       sendToKitchen: "Send to Kitchen", goBack: "Back", proceed: "Proceed"
     },
     th: {
-      restaurantName: "จี้ดจ้าด",
+      restaurantName: "จี๊ดจ๊าด",
       navHome: "หน้าหลัก", navMenu: "เมนู", navCart: "ตะกร้า", navAccount: "โปรไฟล์",
       exploreMenu: "ดูเมนู", chefsPick: "ทีเด็ดร้านเรา",
       addToOrder: "ใส่ตะกร้า", yourOrder: "รายการอาหาร", checkoutTitle: "ชำระเงิน",
@@ -51,6 +51,9 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const savedLang = localStorage.getItem('lang')
     if (savedLang) setLangState(savedLang)
+    
+    const savedTheme = localStorage.getItem('theme')
+    if (savedTheme === 'dark') setIsDark(true)
     
     const savedCart = localStorage.getItem('cart')
     if (savedCart) setCart(JSON.parse(savedCart))
@@ -71,6 +74,10 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     localStorage.setItem('lang', lang)
   }, [lang])
+
+  useEffect(() => {
+    localStorage.setItem('theme', isDark ? 'dark' : 'light')
+  }, [isDark])
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
