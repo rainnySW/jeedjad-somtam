@@ -138,8 +138,8 @@ export default function OptionsModal({ item, onClose, onSave, lang, t }) {
           ></textarea>
         </div>
 
-        <button onClick={handleSave} className="w-full py-4 bg-[#E63946] text-white rounded-xl font-bold text-lg hover:opacity-90 active:scale-95 transition-all shadow-[0_4px_15px_rgba(230,57,70,0.3)]">
-          {t('addToOrder')} - ฿{(basePrice + addonsPrice) * qty}
+        <button onClick={handleSave} className="w-full py-4 bg-[#E63946] text-white rounded-xl font-bold text-lg hover:opacity-90 active:scale-95 transition-all shadow-[0_4px_15px_rgba(230,57,70,0.3)] flex items-center justify-center gap-2">
+          <span className="text-2xl">🛒</span> <span>฿{(basePrice + addonsPrice) * qty}</span>
         </button>
       </div>
     </div>

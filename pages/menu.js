@@ -104,9 +104,9 @@ export default function Menu({ t, lang, setEditingItem, quickAddToCart }) {
                 </p>
                 <button 
                   onClick={(e) => { e.stopPropagation(); quickAddToCart(item); }}
-                  className="w-full py-2 md:py-3 bg-[#E63946]/5 dark:bg-[#E63946]/10 text-center rounded-lg md:rounded-xl font-bold text-xs md:text-sm text-[#E63946] hover:bg-[#E63946] hover:text-white transition-colors cursor-pointer"
+                  className="w-full py-2 md:py-3 bg-[#E63946]/5 dark:bg-[#E63946]/10 flex justify-center items-center rounded-lg md:rounded-xl font-bold text-xs md:text-sm text-[#E63946] hover:bg-[#E63946] hover:text-white transition-colors cursor-pointer"
                 >
-                  {t('addToOrder')}
+                  <span className="text-lg">🛒</span>
                 </button>
               </div>
             </div>
