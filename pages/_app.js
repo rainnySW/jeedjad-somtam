@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }) {
   const translations = {
     en: {
       restaurantName: "JeedJad!",
-      navHome: "Home", navMenu: "Menu", navCart: "Cart", navAccount: "Profile",
+      navHome: "Home", navMenu: "Menu", navCart: "Cart", navAccount: "Settings",
       exploreMenu: "Explore Menu", chefsPick: "Chef's Pick",
       addToOrder: "Add to Order", yourOrder: "Your Order", checkoutTitle: "Payment",
       emptyCart: "Your cart is empty.", total: "Total", proceedToPayment: "Checkout",
@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }) {
     },
     th: {
       restaurantName: "จี๊ดจ๊าด",
-      navHome: "หน้าหลัก", navMenu: "เมนู", navCart: "ตะกร้า", navAccount: "โปรไฟล์",
+      navHome: "หน้าหลัก", navMenu: "เมนู", navCart: "ตะกร้า", navAccount: "ตั้งค่า",
       exploreMenu: "ดูเมนู", chefsPick: "ทีเด็ดร้านเรา",
       addToOrder: "ใส่ตะกร้า", yourOrder: "รายการอาหาร", checkoutTitle: "ชำระเงิน",
       emptyCart: "ยังไม่มีรายการอาหาร", total: "รวม", proceedToPayment: "สั่งอาหาร",

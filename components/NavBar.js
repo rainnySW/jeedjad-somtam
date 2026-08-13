@@ -23,7 +23,7 @@ export default function NavBar({ cartCount, setIsCartOpen, t, lang, setLang, isD
             {t('navMenu')}
           </Link>
           <Link href="/account" className={`px-5 py-2 text-sm font-bold rounded-full transition-all duration-300 ${router.pathname === '/account' ? 'text-white bg-[#E63946] shadow-[0_4px_15px_rgba(230,57,70,0.3)]' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100/50 dark:hover:bg-gray-800/50'}`}>
-            {t('navAccount') || 'Profile'}
+            {t('navAccount') || 'Settings'}
           </Link>
           <div className="w-px h-5 bg-gray-300 dark:bg-gray-600 mx-2"></div>
           <button onClick={() => setIsDark(!isDark)} className="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-sm hover:scale-110 transition-transform">
@@ -44,7 +44,7 @@ export default function NavBar({ cartCount, setIsCartOpen, t, lang, setLang, isD
           <span className="text-xl">📖</span>
         </Link>
         <Link href="/account" className={`flex flex-col items-center justify-center w-12 h-12 rounded-full transition-all ${router.pathname === '/account' ? 'bg-[#E63946] text-white shadow-md -translate-y-2' : 'text-gray-500'}`}>
-          <span className="text-xl">👤</span>
+          <span className="text-xl">⚙️</span>
         </Link>
       </div>
 
