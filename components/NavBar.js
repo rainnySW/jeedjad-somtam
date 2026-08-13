@@ -9,8 +9,8 @@ export default function NavBar({ cartCount, setIsCartOpen, t, lang, setLang, isD
       {/* PC: Floating Pill Island Navigation */}
       <div className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl h-16 bg-white/70 dark:bg-[#292524]/70 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-none z-40 px-6 items-center justify-between rounded-full border border-white/50 dark:border-white/10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-tr from-[#E63946] to-orange-500 rounded-full flex items-center justify-center shadow-inner">
-            <span className="text-xl text-white drop-shadow-md">🥗</span>
+          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-inner overflow-hidden border-2 border-white/20">
+            <img src="/icon.png" alt="Logo" className="w-full h-full object-cover" />
           </div>
           <span className="font-extrabold text-xl text-[#2D2A26] dark:text-[#F5F5F4] tracking-tight">{t('restaurantName')}</span>
         </div>
@@ -51,7 +51,7 @@ export default function NavBar({ cartCount, setIsCartOpen, t, lang, setLang, isD
       {/* Mobile: Floating Top Brand Badge */}
       <div className="md:hidden fixed top-4 left-4 z-40">
          <div className="bg-white/80 dark:bg-[#292524]/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm border border-white/50 dark:border-white/5 flex items-center gap-2">
-          <span className="text-lg">🥗</span>
+          <img src="/icon.png" alt="Logo" className="w-6 h-6 rounded-full object-cover border border-gray-200" />
           <span className="font-extrabold text-sm text-[#2D2A26] dark:text-[#F5F5F4]">{t('restaurantName')}</span>
         </div>
       </div>

@@ -33,6 +33,7 @@ export default function Home({ t, lang, setEditingItem }) {
           <div className="absolute -bottom-10 -left-10 text-[15rem] opacity-10 -rotate-12 blur-sm pointer-events-none">🌶️</div>
 
           <div className="relative z-20 text-center px-6 max-w-3xl mx-auto flex flex-col items-center">
+            <img src="/icon.png" alt="Logo" className="w-24 h-24 md:w-32 md:h-32 rounded-full shadow-2xl border-4 border-white mb-6 object-cover bg-white" />
             <span className="bg-white/20 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 shadow-sm border border-white/20">
               Welcome to
             </span>
